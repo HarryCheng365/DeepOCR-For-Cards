@@ -46,3 +46,27 @@
 5.  Spring Boot中使用Mysql 和 JPA https://www.cnblogs.com/douyamv/p/6607128.html
 6. 通过Jython的方式 实现java和python互相调用的方式传递参数https://blog.csdn.net/wxiaow9000/article/details/51660299
 7. 通过命令行的方式 Java和Python互相调用的方式传递参数https://blog.csdn.net/yue31313/article/details/79571540
+
+### Distribution
+
+1. Web 部分以及中间件 HarryCheng, ZZAster
+2. OpenCV CClyx, KarenZhuu
+3. Python模型部分 Haibaradu, Angus-ZHU
+
+
+
+### Schedule
+
+#### 第一周 18.12.4
+
+> Web组
+
+- 完成环境搭建 选定前端模版 并撸出带用户登录注册 上传的主页面 
+
+> OpenCV组
+
+- 完成环境搭建 尝试学习 如何检测出 校园卡/身份证
+
+> Python模型部分
+
+- 完成环境搭建跑通 Deep-OCR或其他类似项目 看一看准确率是否有说的那么高
