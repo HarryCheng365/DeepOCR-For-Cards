@@ -46,6 +46,7 @@
 5.  Spring Boot中使用Mysql 和 JPA https://www.cnblogs.com/douyamv/p/6607128.html
 6. 通过Jython的方式 实现java和python互相调用的方式传递参数https://blog.csdn.net/wxiaow9000/article/details/51660299
 7. 通过命令行的方式 Java和Python互相调用的方式传递参数https://blog.csdn.net/yue31313/article/details/79571540
+8. USB连接 利用Chorme的Dev-Tool 进行调试 http://www.cnblogs.com/xy-nb/p/web.html 
 
 ### Distribution
 
@@ -55,9 +56,27 @@
 
 
 
+
+
+### Requirements
+
+#### 最低要求
+
+- 用户上传图片，切割并返回显示文本信息 切割识别准确率+模型OCR识别率 综合应在70%以上
+
+#### 中级要求
+
+- 利用USB外接设备 调用手机摄像头拍摄图片并上传 切割并返回显示文本信息 切割识别准确率+模型OCR识别率综合应在80%以上
+
+#### 理想要求
+
+- 服务器部署后 用户打开相应WEB页面 点击上传文件 调用手机原生摄像头 辅助拍摄图片并上传 切割并返回显示文本信息 切割识别准确率+模型OCR识别率 综合应在90%左右
+
+
+
 ### Schedule
 
-#### 第一周 18.12.4
+#### 第一周 18.12.4-18.12.11
 
 > Web组
 
@@ -70,3 +89,9 @@
 > Python模型部分
 
 - 完成环境搭建跑通 Deep-OCR或其他类似项目 看一看准确率是否有说的那么高
+
+#### 第二周 18.12
+
+> Web组
+
+- 基本UI改好 / 选取文件上传接受 保存至本地，并将图片地址存入数据库 实现java程序 与 Python程序的通信
