@@ -1,7 +1,5 @@
 (function(angular, $) {
     var app=angular.module('myApp', ['ngFileUpload','ui.router']);
-    app.controller('indexCtrl', ['$scope','$http',function ($scope,$http){
-    }]);
 
     app.run( function run( $http ){
 
@@ -12,31 +10,27 @@
     app.config(function ($stateProvider, $urlRouterProvider) {
 
         $urlRouterProvider.otherwise('/index');
-        $stateProvider.state('workspace', {
-            url: '/workspace',
+        $stateProvider.state('team', {
+            url: '/team',
             views: {
                 '': {
-                    templateUrl: 'page/workspace/main.html'
+                    templateUrl: 'page/team.html'
                 }
             },
-            params:{page:""},
-            onExit:function () {
-                $('#context-menu').remove();
-            }
-        }).state('monitor',{
+        }).state('contact',{
 
-            url:'/monitor',
+            url:'/contact',
             views:{
                 '':{
-                    templateUrl:'page/productionArea/Monitor.html'
+                    templateUrl:'page/contact.html'
                 }
             },
-            params:{chosenData:null, TaskId:null,processInstanceId:null, processDefinitionId:null,JobInfo:null}//生产区管理页面
-        }).state('doservice',{
-            url:'/doservice',
+            params:{chosenData:null}//生产区管理页面
+        }).state('feature',{
+            url:'/feature',
             views:{
                 '':{
-                    templateUrl:'page/productionArea/doservice.html'
+                    templateUrl:'page/feature.html'
                 }
             },
             params:{chosenData:null}//生产区管理页面
@@ -44,13 +38,27 @@
             url:'/index',
             views:{
                 '':{
-                    templateUrl:'page/productionArea/AreaPage.html'
+                    templateUrl:'page/main.html'
                 }
             }
 
+        }).state('about',{
+            url:'/about',
+            views:{
+                '':{
+                    templateUrl:'page/about.html'
+                }
+            }
         });
 
     });
+
+    app.controller('indexCtrl', ['$scope','$http',function ($scope,$http,$state){
+
+
+    }]);
+
+
 
 
 

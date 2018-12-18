@@ -1,9 +1,22 @@
-(function(window, angular, $) {
-    var app=angular.module('myApp', ['ngFileUpload','ui.router']);
+(function( angular, $) {
+
+
+    angular.module('myApp').controller("APICtrl", function($scope,$http,$state) {
+        $scope.init=function(){
+            $state.go('team',{chosenData:null},{reload:true});
+
+        }
+
+
+
+
+
+    });
 
 
 
 
 
 
-})(window, angular, jQuery);
+
+})(angular, jQuery);
