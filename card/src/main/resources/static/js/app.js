@@ -16,7 +16,7 @@
                 '': {
                     templateUrl: 'page/team.html'
                 }
-            },
+            }
         }).state('contact',{
 
             url:'/contact',
@@ -53,7 +53,11 @@
 
     });
 
-    app.controller('indexCtrl', ['$scope','$http',function ($scope,$http,$state){
+    app.controller('indexCtrl', ['$scope','$http','$state',function ($scope,$http,$state){//必须 引入和
+        
+        $scope.GoToUpLoad=function(){
+            $state.go('contact',{chosenData:null},{reload:true});
+        };
 
 
     }]);

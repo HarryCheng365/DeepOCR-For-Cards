@@ -1,41 +1,40 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="myApp">
 <head>
-<title>Home</title>
-	
+	<title>Home</title>
+
 	<!-- Meta tag Keywords -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="utf-8">
 	<meta name="keywords" content="" />
 	<script>
-		addEventListener("load", function () {
-			setTimeout(hideURLbar, 0);
-		}, false);
-
-		function hideURLbar() {
-			window.scrollTo(0, 1);
-		}
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
 	</script>
 	<!--// Meta tag Keywords -->
-    
+
 	<!-- banner slider css -->
 	<link href="css/minimal-slider.css" rel='stylesheet' type='text/css' />
 	<!-- //banner slider css -->
-	
+
 	<!-- css files -->
 	<link rel="stylesheet" href="css/bootstrap.css"> <!-- Bootstrap-Core-CSS -->
-    <link href="css/style6.css" rel='stylesheet' type='text/css' />
-	<link rel="stylesheet" href="css/style.css" type="text/css" media="all" /> <!-- Style-CSS --> 
+	<link href="css/style6.css" rel='stylesheet' type='text/css' />
+	<link rel="stylesheet" href="css/style.css" type="text/css" media="all" /> <!-- Style-CSS -->
 	<link rel="stylesheet" href="css/fontawesome-all.css"> <!-- Font-Awesome-Icons-CSS -->
 	<!-- //css files -->
-	
+
 	<!--web font-->
-	<link href="http://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&amp;subset=latin-ext" rel="stylesheet">
+	<!--<link href="http://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&amp;subset=latin-ext" rel="stylesheet">-->
 	<!--//web font-->
 
 </head>
 
-<body>
+<body ng-controller="indexCtrl">
 
 <!-- header -->
 <div class="header-top">
@@ -122,19 +121,24 @@
 							<a class="dropdown-item" href="pricing.html"> Dark Version</a>
 						</div>
 					</li> -->
-					<li class="nav-item active" style="padding-top: 0px;padding-bottom: 0px">
-						<a class="nav-link" href="index.html">Home
+
+
+					<li class="nav-item" style="padding-top: 0px;padding-bottom: 0px">
+						<a class="nav-link" href="#">Home
 							<span class="sr-only">(current)</span>
 						</a>
 					</li>
-					<li class="nav-item" style="padding-top: 0px;padding-bottom: 0px">
-						<a class="nav-link" href="features.html">Our Features</a>
+					<li class="nav-item" style="padding-top: 0px;padding-bottom: 0px" ui-sref="feature">
+						<a class="nav-link" href="#">Our Features</a>
 					</li>
-					<li class="nav-item" style="padding-top: 0px;padding-bottom: 0px">
-						<a class="nav-link" href="team.html">Team</a>
+					<li class="nav-item" style="padding-top: 0px;padding-bottom: 0px" ui-sref="team">
+						<a class="nav-link"  href="#" >Team</a>
 					</li>
-					<li class="nav-item" style="padding-top: 0px;padding-bottom: 0px">
-						<a class="nav-link" href="contact.html">Contact</a>
+					<li class="nav-item" style="padding-top: 0px;padding-bottom: 0px" ui-sref="contact">
+						<a class="nav-link" href="#">Contact</a>
+					</li>
+					<li class="nav-item" style="padding-top: 0px;padding-bottom: 0px" ui-sref="about">
+						<a class="nav-link" href="#">About</a>
 					</li>
 					
 					
@@ -144,282 +148,20 @@
 		</nav>
 	</header>
 </div>
-<!-- header -->
 
-<!-- main image slider container -->
-<section class="slide-window">
-	<div class="slide-wrapper" style="width:300%;">
-		<div class="slide">
-			<div class="slide-caption text-center">
-			   <h2 class="text-uppercase">校园卡<span> 检测</span></h2>
-			   <p class="my-4">手机拍摄上传校园卡照片，在线检测是否为校园卡</p>
-			   <div class="read">
-					<a href="#" data-toggle="modal" data-target="#exampleModalCenter1" role="button">Read More <span class="btn ml-2"><i class="fas fa-arrow-right" aria-hidden="true"></i></span></a>
-				</div>				
-			</div>
-		</div>
-		<div class="slide slide2">
-			<div class="slide-caption text-center">
-				<h3 class="text-uppercase">卡片信息<span> 识别</span></h3>
-			   <p class="my-4">提取校园卡信息，方便录入</p>
-			   <div class="read">
-					<a href="#" data-toggle="modal" data-target="#exampleModalCenter1" role="button">Read More <span class="btn ml-2"><i class="fas fa-arrow-right" aria-hidden="true"></i></span></a>
-				</div>	
-			</div>
-		</div>
-		<div class="slide slide3">
-			<div class="slide-caption text-center">
-				<h3 class="text-uppercase">快速注册<span> 会员</span></h3>
-			   <p class="my-4">手机辅助拍摄，过审即可注册会员</p>
-			   <div class="read">
-					<a href="#" data-toggle="modal" data-target="#exampleModalCenter1" role="button">Read More <span class="btn ml-2"><i class="fas fa-arrow-right" aria-hidden="true"></i></span></a>
-				</div>	
-			</div>
-		</div>
-	</div>
-	<div class="slide-controller">
-		<div class="slide-control-left">
-			<div class="slide-control-line"></div>
-			<div class="slide-control-line"></div>
-		</div>
-		<div class="slide-control-right">
-			<div class="slide-control-line"></div>
-			<div class="slide-control-line"></div>
-		</div>
-	</div>
-</section>
+
+
 <!-- end of main image slider container -->
-	
-<!-- welcome -->
-<section class="Welcome py-5">
-	<div class="container py-sm-5">
-		<div class="welcome-grids row">
-			<div class="col-lg-6 mb-lg-0 mb-5">
-				<h3 class="mt-lg-4">灵感来源</h3>
-				<p class="my-4">灵感源自五天契约情侣活动，在面向大众时为确保活动参与人员都为学校师生，需要人工甄别身份信息。在持有证明卡件下，如何快速有效准确率高的识别卡片信息，确认人员身份是一个值得思考的问题</p>
-				<p class="mb-4">Deep Learning驱动的AI浪潮下，身份证识别已经有较高准确率。为什么利用现有开源技术，尝试一下识别学生证呢？</p>
-				<div class="read">
-					<a href="about.html">Click More <span class="btn ml-2"><i class="fas fa-arrow-right" aria-hidden="true"></i></span></a>
-				</div>	
-			</div>
-			<div class="col-lg-3 col-md-4 col-6 pr-1 welcome-image">
-				<img src="images/a1.jpg" class="img-fluid" alt="" />
-			</div>	
-			<div class="col-lg-3 col-md-4 col-6 pl-1 welcome-image">
-				<img src="images/a2.jpg" class="img-fluid" alt="" />
-			</div>
-		</div>	
-	</div>	
-</section>
-<!-- welcome -->
 
-<!-- welcome bottom -->
-<section class="Welcome-bottom">
-	<div class="bs-slider-overlay">
-		<div class="container">
-			<div class="welcome-bottom-grids row">
-				
-				<!-- Counter -->
-				<div class="col-lg-6 p-sm-5 p-4 welcome_left Features-bottom">
-					<div class="layer p-sm-5 p-4 welcome_left_inner agile-info">
-							<div class="agileits_w3layouts_about_counter_left w3-agile-grid">
-								<div class="countericon">
-									<span class="fab fa-algolia" aria-hidden="true"></span>
-									<h3 style="width: 150px">月均针对学生开展的活动数</h3>
-								</div>
-								<div class="counterinfo agile-info">
-									<p class="counter">436</p> 
-								</div>
-								<div class="clearfix"> </div>
-							</div>
-							<div class="mt-sm-5 mt-3 agileits_w3layouts_about_counter_left w3-agile-grid">
-								<div class="countericon">
-									<span class="fab fa-asymmetrik" aria-hidden="true"></span>
-									<h3 style="width: 150px">人均每天用卡片自证身份次数</h3>
-								</div>
-								<div class="counterinfo agile-info">
-									<p class="counter">10</p> 
-								</div>
-								<div class="clearfix"></div>
-							</div>
-							<div class="mt-sm-5 mt-3 agileits_w3layouts_about_counter_left w3-agile-grid">
-								<div class="countericon">
-									<span class="fas fa-bug" aria-hidden="true"></span>
-									<h3 style="width: 150px">平均每天遗失的学生证数</h3>
-								</div>
-								<div class="counterinfo agile-info">
-									<p class="counter">218</p>
-								</div>
-								<div class="clearfix"> </div>
-							</div>
-					</div>
-				</div>
-				<!-- //Counter -->
-				<div class="col-lg-6 p-sm-5 p-4 mt-lg-5 mt-0 welcome_bottom_right">
-					<h3>需求分析</h3>
-					<p class="my-4">需求驱动进步</p>
-					<div class="read">
-						<a href="#" data-toggle="modal" data-target="#exampleModalCenter1" role="button">Click More <span class="btn ml-2"><i class="fas fa-arrow-right" aria-hidden="true"></i></span></a>
-					</div>
-				</div>
-			</div>	
-		</div>	
-	</div>	
-</section>
-<!-- //welcome bottom -->
 
-<!--&lt;!&ndash; Features &ndash;&gt;-->
-<!--<section class="features py-5">-->
-	<!--<div class="container py-sm-5">-->
-		<!--<div class="heading pb-4">-->
-			<!--<h3 class="heading mb-2 text-center"> <span>Our </span> Features </h3>-->
-			<!--<p class="para mb-5 text-center">Excepteur sint occaecat non proident, sunt in culpa quis. Phasellus lacinia id.</p>-->
-		<!--</div>-->
-		<!--<div class="feature-grids row">-->
-			<!--<div class="col-lg-4 col-md-6">-->
-				<!--<div class="f1 p-sm-5 p-4">-->
-					<!--<i class="fas fa-arrow-right" aria-hidden="true"></i>-->
-					<!--<h3 class="my-3">Feature 1</h3>-->
-					<!--<p>Excepteur sint occaecat non proident, sunt in culpa quis. Phasellus lacinia id erat eu ullamcorper. Nunc id ipsum.</p>-->
-				<!--</div>-->
-			<!--</div>-->
-			<!--<div class="col-lg-4 col-md-6 mt-md-0 mt-sm-5 mt-4">-->
-				<!--<div class="f2-active p-sm-5 p-4">-->
-					<!--<i class="fas fa-arrow-right" aria-hidden="true"></i>-->
-					<!--<h3 class="my-3">Feature 2</h3>-->
-					<!--<p>Excepteur sint occaecat non proident, sunt in culpa quis. Phasellus lacinia id erat eu ullamcorper. Nunc id ipsum.</p>-->
-				<!--</div>-->
-			<!--</div>-->
-			<!--<div class="col-lg-4 col-md-6 mt-lg-0 mt-sm-5 mt-4">-->
-				<!--<div class="f1 p-sm-5 p-4">-->
-					<!--<i class="fas fa-arrow-right" aria-hidden="true"></i>-->
-					<!--<h3 class="my-3">Feature 3</h3>-->
-					<!--<p>Excepteur sint occaecat non proident, sunt in culpa quis. Phasellus lacinia id erat eu ullamcorper. Nunc id ipsum.</p>-->
-				<!--</div>-->
-			<!--</div>-->
-			<!--<div class="col-lg-4 col-md-6 mt-sm-5 mt-4">-->
-				<!--<div class="f1 p-sm-5 p-4">-->
-					<!--<i class="fas fa-arrow-right" aria-hidden="true"></i>-->
-					<!--<h3 class="my-3">Feature 4</h3>-->
-					<!--<p>Excepteur sint occaecat non proident, sunt in culpa quis. Phasellus lacinia id erat eu ullamcorper. Nunc id ipsum.</p>-->
-				<!--</div>-->
-			<!--</div>-->
-			<!--<div class="col-lg-4 col-md-6 mt-sm-5 mt-4">-->
-				<!--<div class="f1 p-sm-5 p-4">-->
-					<!--<i class="fas fa-arrow-right" aria-hidden="true"></i>-->
-					<!--<h3 class="my-3">Feature 5</h3>-->
-					<!--<p>Excepteur sint occaecat non proident, sunt in culpa quis. Phasellus lacinia id erat eu ullamcorper. Nunc id ipsum.</p>-->
-				<!--</div>-->
-			<!--</div>-->
-			<!--<div class="col-lg-4 col-md-6 mt-sm-5 mt-4">-->
-				<!--<div class="f1 p-sm-5 p-4">-->
-					<!--<i class="fas fa-arrow-right" aria-hidden="true"></i>-->
-					<!--<h3 class="my-3">Feature 6</h3>-->
-					<!--<p>Excepteur sint occaecat non proident, sunt in culpa quis. Phasellus lacinia id erat eu ullamcorper. Nunc id ipsum.</p>-->
-				<!--</div>-->
-			<!--</div>-->
-		<!--</div>-->
-	<!--</div>-->
-<!--</section>-->
-<!--&lt;!&ndash; //Features &ndash;&gt;-->
-<!-- team -->
-<section id="myteam" class="team py-5">
-	<div class="container py-md-5">
-		<div class="heading pb-4">
-			<h3 class="heading mb-2 text-center"> <span>Our </span> Team </h3>
-			<p class="para mb-5 text-center">Excepteur sint occaecat non proident, sunt in culpa quis. Phasellus lacinia id.</p>
-		</div>
-		<div class="row team-row">
-			<div class="col-md-4 col-sm-6 team-wrap">
-				<div class="team-member text-center">
-					<div class="team-img">
-						<img src="images/team1.jpg" alt="">
-						<div class="overlay-team">
-							<div class="team-details text-center">
-								<div class="socials mt-20">
-									<a href="#">
-										<i class="fab fa-facebook-f"></i>
-									</a>
-									<a href="#">
-										<i class="fab fa-twitter"></i>
-									</a>
-									<a href="#">
-										<i class="fab fa-google-plus-g"></i>
-									</a>
-									<a href="#">
-										<i class="fab fa-instagram"></i>
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<h6 class="team-title">Mustakim</h6>
-					<span>web devloper</span>
-				</div>
-			</div>
-			<!-- end team member -->
+<div class="content-wrapper">
 
-			<div class="col-md-4 col-sm-6 team-wrap mt-sm-0 mt-5">
-				<div class="team-member text-center">
-					<div class="team-img">
-						<img src="images/team3.jpg" alt="">
-						<div class="overlay-team">
-							<div class="team-details text-center">
-								<div class="socials mt-20">
-									<a href="#">
-										<i class="fab fa-facebook-f"></i>
-									</a>
-									<a href="#">
-										<i class="fab fa-twitter"></i>
-									</a>
-									<a href="#">
-										<i class="fab fa-google-plus-g"></i>
-									</a>
-									<a href="#">
-										<i class="fab fa-instagram"></i>
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<h6 class="team-title">Aunto Apu</h6>
-					<span>android devloper</span>
-				</div>
-			</div>
-			<!-- end team member -->
+	<div ui-view></div>
 
-			<div class="col-md-4 col-sm-6 team-wrap mt-md-0 mt-5">
-				<div class="team-member last text-center">
-					<div class="team-img">
-						<img src="images/team2.jpg" alt="">
-						<div class="overlay-team">
-							<div class="team-details text-center">
-								<div class="socials mt-20">
-									<a href="#">
-										<i class="fab fa-facebook-f"></i>
-									</a>
-									<a href="#">
-										<i class="fab fa-twitter"></i>
-									</a>
-									<a href="#">
-										<i class="fab fa-google-plus-g"></i>
-									</a>
-									<a href="#">
-										<i class="fab fa-instagram"></i>
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<h6 class="team-title">Jagir Alam</h6>
-					<span>Software engineer </span>
-				</div>
-			</div>
-			<!-- end team member -->
-		</div>
-	</div>
-</section>
-<!-- //team -->
+
+	<!-- /main content -->
+
+</div>
 
 <!-- brands -->
 <section class="partners bg-light py-5">
@@ -696,87 +438,93 @@
 	</div>
 	<!-- //Vertically centered Modal -->
 
-	<!-- js -->
-	<script src="js/library/jquery-2.1.4.min.js"></script>
-	<script src="js/library/bootstrap.js"></script> <!-- Necessary-JavaScript-File-For-Bootstrap -->
-	<!-- //js -->
-	
-	<!-- search overlay -->
-    <script src="js/library/modernizr-2.6.2.min.js"></script>
-	<!-- //search overlay -->
-	
-	<!--search jQuery-->
-    <script src="js/library/classie-search.js"></script>
-    <script src="js/library/demo1-search.js"></script>
-    <!--//search jQuery-->
+<!-- js -->
+<script src="js/library/jquery-2.1.4.min.js"></script>
 
-    <!-- dropdown nav -->
-    <script>
-        $(document).ready(function() {
-            $(".dropdown").hover(
-                function() {
-                    $('.dropdown-menu', this).stop(true, true).slideDown("fast");
-                    $(this).toggleClass('open');
-                },
-                function() {
-                    $('.dropdown-menu', this).stop(true, true).slideUp("fast");
-                    $(this).toggleClass('open');
-                }
-            );
+
+<script src="js/library/bootstrap.js"></script> <!-- Necessary-JavaScript-File-For-Bootstrap -->
+
+<script src="js/library/angular.js"></script>
+<script src="js/library/angular/ng-file-upload-shim.min.js"></script>
+<script src="js/library/angular/ng-file-upload.min.js"></script>
+<script type="text/javascript" src="js/library/angular/angular-ui-router.min.js"></script>
+<script src="js/app.js"></script>
+<script src="js/main.js"></script>
+<!-- //js -->
+
+<!-- search overlay -->
+<script src="js/library/modernizr-2.6.2.min.js"></script>
+<!-- //search overlay -->
+
+<!--search jQuery-->
+<script src="js/library/classie-search.js"></script>
+<script src="js/library/demo1-search.js"></script>
+<!--//search jQuery-->
+
+<!-- dropdown nav -->
+<script>
+    $(document).ready(function() {
+        $(".dropdown").hover(
+            function() {
+                $('.dropdown-menu', this).stop(true, true).slideDown("fast");
+                $(this).toggleClass('open');
+            },
+            function() {
+                $('.dropdown-menu', this).stop(true, true).slideUp("fast");
+                $(this).toggleClass('open');
+            }
+        );
+    });
+</script>
+
+<!-- start-smoth-scrolling -->
+<script src="js/library/SmoothScroll.min.js"></script>
+<script src="js/library/move-top.js"></script>
+<script src="js/library/easing.js"></script>
+<script src="js/library/minimal-slider.js"></script>
+<script src="js/library/waypoints.min.js"></script>
+<script src="js/library/counterup.min.js"></script>
+<script>
+    jQuery(document).ready(function( $ ) {
+        $('.counter').counterUp({
+            delay: 100,
+            time: 1000
         });
-    </script>
-    <!-- //dropdown nav -->
+    });
+</script>
+<script>
+    jQuery(document).ready(function($) {
+        $(".scroll").click(function(event){
+            event.preventDefault();
+            $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+        });
+    });
+</script>
+<!-- here stars scrolling icon -->
+<script>
+    $(document).ready(function() {
+        /*
+            var defaults = {
+            containerID: 'toTop', // fading element id
+            containerHoverID: 'toTopHover', // fading element hover id
+            scrollSpeed: 1200,
+            easingType: 'linear'
+            };
+        */
+        $().UItoTop({ easingType: 'easeOutQuart' });
 
-	<!-- banner slider js -->
-	<script src="js/library/minimal-slider.js"></script>
-	<!-- //banner slider js -->
+    });
+</script>
 
-	<!-- Stats-Number-Scroller-Animation-JavaScript -->
-	<script src="js/library/waypoints.min.js"></script>
-	<script src="js/library/counterup.min.js"></script>
-	<script>
-		jQuery(document).ready(function( $ ) {
-			$('.counter').counterUp({
-				delay: 100,
-				time: 1000
-			});
-		});
-	</script>
-	<!-- //Stats-Number-Scroller-Animation-JavaScript -->
-	<script src="js/library/angular/angular.min.js"></script>
-	<script src="js/library/angular/ng-file-upload.min.js"></script>
-	<script type="text/javascript" src="js/library/angular/angular-ui-router.min.js"></script>
-	<script type="text/javascript" src="js/library/angular/angular-ui-router.js"></script>
-	<!-- start-smoth-scrolling -->
-	<script src="js/library/SmoothScroll.min.js"></script>
-	<script src="js/library/move-top.js"></script>
-	<script src="js/library/easing.js"></script>
-    <script src="js/app.js"></script>
-	<script>
-		jQuery(document).ready(function($) {
-			$(".scroll").click(function(event){		
-				event.preventDefault();
-				$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
-			});
-		});
-	</script>
-	<!-- here stars scrolling icon -->
-	<script>
-		$(document).ready(function() {
-			/*
-				var defaults = {
-				containerID: 'toTop', // fading element id
-				containerHoverID: 'toTopHover', // fading element hover id
-				scrollSpeed: 1200,
-				easingType: 'linear' 
-				};
-			*/
-			$().UItoTop({ easingType: 'easeOutQuart' });
-								
-			});
-	</script>
-	<!-- //here ends scrolling icon -->
-	<!-- start-smoth-scrolling -->
+
+
+
+
+
+
+
+
+
 
 </body>
 </html>
