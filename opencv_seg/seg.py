@@ -55,7 +55,7 @@ def get_pic(input):
 
 
 def get_img_from_local():
-    return cv2.imread('1.jpg')
+    return cv2.imread('2.jpg')
 
 
 def get_img_from_pipeline():
@@ -66,7 +66,11 @@ def get_img_from_pipeline():
 def seg(img):
     card = get_card(img)
     pic = card[50:355, 40:270]
-    pic = get_pic(pic)
+    # 如果照片污损严重就降级不做投影了
+    try:
+        pic = get_pic(pic)
+    except:
+        pass
     word = card[355:520, 30:330]
     return pic, word
 
