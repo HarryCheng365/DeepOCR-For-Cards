@@ -1,6 +1,7 @@
+# -*- coding: utf-8 -*-
 import cv2
 import numpy as np
-
+from ocr.ocr import OCR
 
 def fix_color(img):
     # opencv读图像是奇怪的BGR的顺序，在plot输出的时候重新排序成RGB
@@ -55,7 +56,7 @@ def get_pic(input):
 
 
 def get_img_from_local():
-    return cv2.imread('2.jpg')
+    return cv2.imread('../pics/2.jpg')
 
 
 def get_img_from_pipeline():
@@ -94,4 +95,8 @@ if __name__ == "__main__":
     # pic就是证件照，word就是文字部分的切片
     pic, word = seg(img)
     plot()
+    # 引入ocr函数进行识别
+    _, my_byte = cv2.imencode(".png", word)
+    my_byte = my_byte.tobytes()
+    print(OCR(my_byte))
 
