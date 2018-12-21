@@ -17,15 +17,13 @@
 		</div>
 		<div class="row contact-agileinfo">
 			<div class="col-md-7 contact-right"> 
-				<form action="#" method="post">  
-					<input type="text" name="Name" placeholder="Name" required="">
+				<form action="#" method="post">
 					<input type="email" class="email" name="Email" placeholder="Email" required="">
 					<input type="text" name="Phone no" placeholder="Phone" required="">
 					<textarea name="Message" placeholder="Message" required=""></textarea>
-
 					<div class="col-lg-12">
-						<div class="row">
-							<div ng-repeat="item in thumb" >
+						<div ng-if="!deviceFlag" class="row">
+							<div  ng-repeat="item in thumb" >
 							<div class="team-img col-lg-3" style="max-height: 128px;max-width: 128px;padding-left: 0px;padding-right: 15px " >
 								<img style="height: 128px;width: 128px;" ng-src="{{item.imgSrc}}" alt="">
 								<div class="overlay-team">
@@ -49,10 +47,25 @@
 								</div>
 							</div>
 						</div>
+						<div class="row" ng-if="deviceFlag">
+							<div ng-repeat="item in thumb" >
+								<div class="team-img col-lg-3" style="max-height: 96px;max-width: 96px;padding-left: 0px;padding-right: 15px " >
+									<img style="height: 96px;width: 96px;" ng-src="{{item.imgSrc}}" alt="">
+								</div>
+							</div>
+							<div ng-if="thumb.length>0" class="button" ng-click="img_del(0)"><i class="fa fa-times-circle" style="color: #3b5998;font-size: 20px;padding-left: 10px;"></i></div>
+							<div  ng-show="thumb.length==0" class="team-img col-lg-3" style="max-height: 96px;max-width: 96px;padding-left: 0px;padding-right: 0px">
+								<a class="button" ngf-select ngf-change="uploadFiles($file)"  ngf-validate="{size: {min:'10KB', max:'20MB'}}" ngf-accept="'image/*'" accept="'image/*'" ><i class="fa fa-camera" style="font-size: 30px;padding-left: 10px;padding-top: 10px"></i></a>
+								</div>
+
+						</div>
+
+
+
 					</div>
 					<div class="read mt-3">
 						<a ng-click="upload()">Submit <span class="btn ml-2"><i class="fas fa-arrow-right" aria-hidden="true"></i></span></a>
-					</div>	
+					</div>
 				</form>
 			</div>
 			<div class="col-md-5 mt-md-0 mt-5 contact-left">
