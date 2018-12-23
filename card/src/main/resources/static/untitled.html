@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">    
+    <title>html5 调用本地摄像头</title>
+</head>
+<body>
+<div class="contentarea">
+    <h1>
+        MDN - WebRTC: Still photo capture demo
+    </h1>
+    <p>
+        This example demonstrates how to set up a media stream using your built-in webcam, fetch an image from that stream, and create a PNG using that image.
+    </p>
+    <div class="camera">
+        <video id="video">Video stream not available.</video>
+        <button id="startbutton">Take photo</button>
+    </div>
+    <canvas id="canvas">
+    </canvas>
+    <div class="output">
+        <img id="photo" alt="The screen capture will appear in this box.">
+    </div>
+    <p>
+        Visit our article <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Taking_still_photos"> Taking still photos with WebRTC</a> to learn more about the technologies used here.
+    </p>
+</div>
+<script>
+    (function() {
+        // The width and height of the captured photo. We will set the
+        // width to the value defined here, but the height will be
+        // calculated based on the aspect ratio of the input stream.
+
+        var width = 320;    // We will scale the photo width to this
+        var height = 0;     // This will be computed based on the input stream
+
+        // |streaming| indicates whether or not we're currently streaming
+        // video from the camera. Obviously, we start at false.
+
+        var streaming = false;
+
+        // The various HTML elements we need to configure or control. These
+        // will be set by the startup() function.
+
+        var video = null;
+        var canvas = null;
+        var photo = null;
+        var startbutton = null;
+
+        function startup() {
+            video = document.getElementById('video');
+            canvas = document.getElementById('canvas');
+            photo = document.getElementById('photo');
+            startbutton = document.getElementById('startbutton');
+
+            var errocb = function (code) {
+                alert(code);
+            };
+
+
+
+            if (navigator.getUserMedia) { // 标准的API
+                navigator.getUserMedia({ "video": true }, function (stream) {
+                    video.srcObject = stream;
+                    video.play();
+                }, errocb);
+            } else if (navigator.webkitGetUserMedia) { // WebKit 核心的API
+
+                console.log(navigator.webkitGetUserMedia);
+                navigator.webkitGetUserMedia({"video": true}, function (stream) {
+
+                    video.srcObject = window.webkitURL.createObjectURL(stream);
+                    video.play();
+                }, errocb);
+            }else if(navigator.mozGetUserMedia) { // Firefox-prefixed
+                navigator.mozGetUserMedia(videoObj, function(stream){
+                    video.src = window.URL.createObjectURL(stream);
+                    video.play();
+                }, errBack);
+            };
+
+            <!--console.log(navigator.webkitGetUserMedia);-->
+
+
+            video.addEventListener('canplay', function(ev){
+                if (!streaming) {
+                    height = video.videoHeight / (video.videoWidth/width);
+
+                    // Firefox currently has a bug where the height can't be read from
+                    // the video, so we will make assumptions if this happens.
+
+                    if (isNaN(height)) {
+                        height = width / (4/3);
+                    }
+
+                    video.setAttribute('width', width);
+                    video.setAttribute('height', height);
+                    canvas.setAttribute('width', width);
+                    canvas.setAttribute('height', height);
+                    streaming = true;
+                }
+            }, false);
+
+            startbutton.addEventListener('click', function(ev){
+                takepicture();
+                ev.preventDefault();
+            }, false);
+
+            clearphoto();
+        }
+
+        // Fill the photo with an indication that none has been
+        // captured.
+
+        function clearphoto() {
+            var context = canvas.getContext('2d');
+            context.fillStyle = "#AAA";
+            context.fillRect(0, 0, canvas.width, canvas.height);
+
+            var data = canvas.toDataURL('image/png');
+            photo.setAttribute('src', data);
+        }
+
+        // Capture a photo by fetching the current contents of the video
+        // and drawing it into a canvas, then converting that to a PNG
+        // format data URL. By drawing it on an offscreen canvas and then
+        // drawing that to the screen, we can change its size and/or apply
+        // other changes before drawing it.
+
+        function takepicture() {
+            var context = canvas.getContext('2d');
+            if (width && height) {
+                canvas.width = width;
+                canvas.height = height;
+                context.drawImage(video, 0, 0, width, height);
+
+                var data = canvas.toDataURL('image/png');
+                photo.setAttribute('src', data);
+            } else {
+                clearphoto();
+            }
+        }
+
+        // Set up our event listener to run the startup process
+        // once loading is complete.
+        window.addEventListener('load', startup, false);
+    })();
+</script>
+    <!--<script type="text/javascript">-->
+        <!--var video = document.getElementById("video");-->
+        <!--var context = canvas.getContext("2d");-->
+        <!--var errocb = function (code) {-->
+            <!--alert(code);-->
+        <!--};-->
+
+
+
+        <!--if (navigator.getUserMedia) { // 标准的API-->
+        <!--navigator.getUserMedia({ "video": true }, function (stream) {-->
+            <!--video.srcObject = stream;-->
+            <!--video.play();-->
+        <!--}, errocb);-->
+        <!--} else if (navigator.webkitGetUserMedia) { // WebKit 核心的API-->
+
+            <!--console.log(navigator.webkitGetUserMedia);-->
+            <!--navigator.webkitGetUserMedia({"video": true}, function (stream) {-->
+
+                <!--video.srcObject = window.webkitURL.createObjectURL(stream);-->
+                <!--video.play();-->
+            <!--}, errocb);-->
+        <!--}else if(navigator.mozGetUserMedia) { // Firefox-prefixed-->
+                <!--navigator.mozGetUserMedia(videoObj, function(stream){-->
+                    <!--video.src = window.URL.createObjectURL(stream);-->
+                    <!--video.play();-->
+                <!--}, errBack);-->
+            <!--};-->
+
+
+    <!--window.setInterval(function(){-->
+        <!--context.drawImage(video, 0, 0, 375, 180);-->
+    <!--},15);-->
+<!--</script>-->
+    <!--<style type="text/css">-->
+        <!--html,body{-->
+            <!--position: relative;-->
+            <!--width: 100%;-->
+            <!--height: 100%;-->
+            <!--padding: 0px;-->
+            <!--margin: 0px;-->
+        <!--}-->
+        <!--video{-->
+            <!--width: 30%;-->
+            <!--height: 30%;-->
+        <!--}-->
+        <!--canvas{-->
+            <!--width: 30%;-->
+            <!--height: 30%;    -->
+            <!--position: absolute;-->
+            <!--left: 200px;-->
+            <!--top: 0px;-->
+            <!--z-index: 100;-->
+        <!--}-->
+    <!--</style>-->
+</body>
+</html>

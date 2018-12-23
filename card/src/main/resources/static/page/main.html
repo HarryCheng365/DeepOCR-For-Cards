@@ -116,7 +116,22 @@
         </div>
     </div>
 </section>
-
+<script>
+    jQuery(document).ready(function( $ ) {
+        $('.counter').counterUp({
+            delay: 100,
+            time: 1000
+        });
+    });
+</script>
+<script>
+    jQuery(document).ready(function($) {
+        $(".scroll").click(function(event){
+            event.preventDefault();
+            $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+        });
+    });
+</script>
 
 
 

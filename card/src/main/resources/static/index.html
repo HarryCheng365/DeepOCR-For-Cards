@@ -26,6 +26,8 @@
 	<link href="css/style6.css" rel='stylesheet' type='text/css' />
 	<link rel="stylesheet" href="css/style.css" type="text/css" media="all" /> <!-- Style-CSS -->
 	<link rel="stylesheet" href="css/fontawesome-all.css"> <!-- Font-Awesome-Icons-CSS -->
+	<link rel="stylesheet"  type="text/css" href="css/clip.css">
+	<link rel="stylesheet" type="text/css" href="css/jquery.Jcrop.css">
 	<!-- //css files -->
 
 	<!--web font-->
@@ -134,7 +136,7 @@
 					<li class="nav-item" style="padding-top: 0px;padding-bottom: 0px" ui-sref="team">
 						<a class="nav-link"  href="#" >Team</a>
 					</li>
-					<li class="nav-item" style="padding-top: 0px;padding-bottom: 0px" ui-sref="contact">
+					<li class="nav-item" style="padding-top: 0px;padding-bottom: 0px" ui-sref="upload">
 						<a class="nav-link" href="#">Contact</a>
 					</li>
 					<li class="nav-item" style="padding-top: 0px;padding-bottom: 0px" ui-sref="about">
@@ -443,15 +445,6 @@
 
 
 <script src="js/library/bootstrap.js"></script> <!-- Necessary-JavaScript-Entity-For-Bootstrap -->
-
-<script src="js/library/angular.js"></script>
-<script src="js/library/angular/ng-file-upload-shim.min.js"></script>
-<script src="js/library/angular/ng-file-upload.min.js"></script>
-<script type="text/javascript" src="js/library/angular/angular-ui-router.min.js"></script>
-<script src="js/app.js"></script>
-<script src="js/main.js"></script>
-<!-- //js -->
-
 <!-- search overlay -->
 <script src="js/library/modernizr-2.6.2.min.js"></script>
 <!-- //search overlay -->
@@ -484,22 +477,16 @@
 <script src="js/library/minimal-slider.js"></script>
 <script src="js/library/waypoints.min.js"></script>
 <script src="js/library/counterup.min.js"></script>
-<script>
-    jQuery(document).ready(function( $ ) {
-        $('.counter').counterUp({
-            delay: 100,
-            time: 1000
-        });
-    });
-</script>
-<script>
-    jQuery(document).ready(function($) {
-        $(".scroll").click(function(event){
-            event.preventDefault();
-            $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
-        });
-    });
-</script>
+
+<script src="js/library/angular.js"></script>
+<script src="js/library/angular/ng-file-upload-shim.min.js"></script>
+<script src="js/library/angular/ng-file-upload.min.js"></script>
+<script type="text/javascript" src="js/library/angular/angular-ui-router.min.js"></script>
+<script src="js/library/jquery.Jcrop.js"></script>
+<script src="js/app.js"></script>
+<script src="js/main.js"></script>
+<script src="js/clip.js"></script>
+
 <!-- here stars scrolling icon -->
 <script>
     $(document).ready(function() {
@@ -514,7 +501,9 @@
         $().UItoTop({ easingType: 'easeOutQuart' });
 
     });
+
 </script>
+
 
 
 

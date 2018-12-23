@@ -35,24 +35,26 @@
         $scope.fileList=[];
         $scope.paramsList=[];
         $scope.thumb_default="../images/add.png";
-        $scope.uploadFiles=function(file){
+        $scope.uploadFiles=function(file) {
             console.log(file);
             var guid = (new Date()).valueOf();
             $scope.reader.readAsDataURL(file);
-            $scope.reader.onload=function (ev) {
-                $scope.$apply(function(){
+            $scope.reader.onload = function (ev) {
+                $scope.$apply(function () {
                     $scope.thumb.push({
-                        'guid':guid,
+                        'guid': guid,
                         'imgSrc': ev.target.result
                     });
                     $scope.paramsList.push({
-                        'guid':guid,
-                        'user':1,
-                        'file':file
+                        'guid': guid,
+                        'user': 1,
+                        'file': file
                     })
                 });
-            }
+            };
+
         };
+
         $scope.img_del=function(key){
            $scope.thumb.splice(key,1);
            $scope.paramsList.splice(key,1);

@@ -17,12 +17,12 @@
                     templateUrl: 'page/team.html'
                 }
             }
-        }).state('contact',{
+        }).state('upload',{
 
-            url:'/contact',
+            url:'/upload',
             views:{
                 '':{
-                    templateUrl:'page/contact.html'
+                    templateUrl:'page/upload.html'
                 }
             },
             params:{chosenData:null}//生产区管理页面
@@ -34,7 +34,15 @@
                 }
             },
             params:{chosenData:null}//生产区管理页面
-        }).state('index',{
+        }).state('clip',{
+                url:'/clip',
+                views:{
+                    '':{
+                        templateUrl:'page/clip.html'
+                    }
+                },
+                params:{chosenData:null}//生产区管理页面
+            }).state('index',{
             url:'/index',
             views:{
                 '':{
@@ -74,8 +82,9 @@
 
         };
         $scope.GoToUpLoad=function() {
-            $state.go('contact', {chosenData: null}, {reload: true})
-        }
+            $state.go('upload', {chosenData: null}, {reload: true})
+        };
+        $scope.paramsList=[];
 
 
 

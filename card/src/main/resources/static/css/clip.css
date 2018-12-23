@@ -1,0 +1,23 @@
+#clipBox{
+    position: relative;
+}
+
+#origBox{
+    border: black solid 2px;
+    float: left;
+    /*position: absolute;*/
+
+}
+#previewBox{
+    border: black solid 2px;
+    float: left;
+    /*position: absolute;*/
+    /*right: 300px;*/
+}
+
+#picForm{
+    clear: both;
+}
+
+#upButton {
+}
