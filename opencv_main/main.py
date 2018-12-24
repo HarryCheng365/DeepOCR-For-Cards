@@ -27,15 +27,17 @@ def Sobel_gradient(blurred):
 def Thresh_and_blur(gradient):
 
     blurred = cv2.GaussianBlur(gradient, (9, 9),0)
+    #thresh = cv2.adaptiveThreshold(blurred, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY_INV, 101, 10);
     (_, thresh) = cv2.threshold(blurred, 90, 255, cv2.THRESH_BINARY)
 
     return thresh
 
 def image_morphology(total_area, thresh):
     horizontal = np.mat(thresh)
+    vertical = np.mat(thresh)
     scale = 60
     horizontalsize = int(horizontal.shape[0] / scale)
-
+    verticalsize = int(vertical.shape[1] / scale)
     # 建立一个椭圆核函数
     kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (30, 30))
     # 执行图像形态学, 细节直接查文档，很简单
@@ -43,19 +45,29 @@ def image_morphology(total_area, thresh):
     closed = cv2.erode(closed, None, iterations=4)
     closed = cv2.dilate(closed, None, iterations=4)
     (cnts, _) = cv2.findContours(closed.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-    con = 1
+    con_hor = 1
     for c in cnts:
         x, y, w, h = cv2.boundingRect(c)
         if w*h > 0.5*total_area:
-            con = 0
+            con_hor = 0
+            break
 
-    if con == 1:
+    if con_hor == 1:
         horizontalkernel = cv2.getStructuringElement(cv2.MORPH_RECT, (horizontalsize, 1))
         closed = cv2.erode(closed, horizontalkernel, None, iterations=1)
         closed = cv2.dilate(closed, horizontalkernel, None, iterations=10)
-
-    print(con)
     return closed
+""" con_ver = 1
+    for c in cnts:
+        x, y, w, h = cv2.boundingRect(c)
+        if w*h > 0.5*total_area:
+            con_ver = 0
+            break
+
+    if con_ver == 1:
+        verticalkernel = cv2.getStructuringElement(cv2.MORPH_RECT, (1, verticalsize))
+        closed = cv2.erode(closed, verticalkernel, None, iterations=1)
+        closed = cv2.dilate(closed, verticalkernel, None, iterations=10)"""
 
 def findcnts_and_box_point(closed):
     # 这里opencv3返回的是三个参数
@@ -95,13 +107,13 @@ def get_word_and_pic(crop_img):
     t = cv2.getPerspectiveTransform(approx, corners)
     card = cv2.warpPerspective(crop_img, t, (860, 540))
 
-    pic = card[50:337, 40:270]
-    word = card[337:540, 30:330]
+    pic = card[50:330, 40:270]
+    word = card[330:540, 30:345]
     return card, pic, word
 
-def walk():
+def get_output(path):
 
-    img_path = r'../pics/card3.jpeg'
+    img_path = path
     original_img, gray = get_image(img_path)
     total_area = original_img.shape[0] * original_img.shape[1]
     blurred = Gaussian_Blur(gray)
@@ -120,7 +132,14 @@ def walk():
     cv2.imshow('pic', pic)
     cv2.namedWindow('word',0)
     cv2.imshow('word', word)
+    cv2.namedWindow('thresh',0)
+    cv2.imshow('thresh', thresh)
+    cv2.namedWindow('closed',0)
+    cv2.imshow('closed', closed)
     cv2.waitKey(0)
 
+    return word, card
+
 if __name__ == '__main__':
-    walk()
+    get_output(path)
+
