@@ -1,5 +1,6 @@
 package com.deepocr.card.Controller;
 
+import antlr.StringUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.deepocr.card.Entity.UploadInfo;
@@ -15,14 +16,17 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
 
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.ws.spi.http.HttpContext;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
+import java.io.*;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.SocketTimeoutException;
 import java.util.List;
 
 
@@ -45,16 +49,69 @@ public class IndexController {
 
     @RequestMapping(value = "/image", method = RequestMethod.POST)
     @ResponseBody
-    public String handleFileUpload(HttpServletRequest request) {
+    public JSONObject handleFileUpload(HttpServletRequest request) throws IOException{
         System.out.println(request.getParameter("guid"));
         System.out.println(request.getParameter("user"));
 
-        MultipartHttpServletRequest params=((MultipartHttpServletRequest) request);
+        MultipartHttpServletRequest params = ((MultipartHttpServletRequest) request);
         MultipartFile file = ((MultipartHttpServletRequest) request)
                 .getFile("file");
+        System.out.println(file.getOriginalFilename());
 
-        UploadInfo uploadInfo=new UploadInfo(request.getParameter("guid"),Integer.parseInt(request.getParameter("user")),file);
-        return fileUtil.saveFileList(uploadInfo);
+        //File convertFile = new File(file.getOriginalFilename());
+        //file.transferTo(convertFile);
+        String result;
+
+        try {
+            Socket socket = new Socket();
+            socket.setSoTimeout(50000);
+            socket.connect(new InetSocketAddress("192.168.1.105", 8000), 10000);
+            OutputStream os = socket.getOutputStream();
+            InputStream is = socket.getInputStream();
+            //FileInputStream fileInputStream = new FileInputStream(convertFile);
+            byte[] sendBytes = new byte[4096];
+            byte[] getBytes = new byte[4096];
+            //int length = 0;
+            //while ((length = fileInputStream.read(sendBytes)) > 0)
+            //    os.write(sendBytes, 0, length);
+            String filename = file.getOriginalFilename();
+            String sub;
+            if (filename.indexOf('.') == -1)
+                sub = ".jpg";
+            else
+                sub = filename.substring(filename.lastIndexOf('.'));
+            System.out.println(sub);
+            os.write(sub.getBytes());
+            //os.write((file.getBytes().length+"").getBytes());
+            os.write(file.getBytes());
+            //os.write("exit".getBytes("UTF-8"));
+            System.out.println("write finish");
+            //OutputStream fileStream = new FileOutputStream(new File("/Users/Haoyu/Desktop/test.jpg"));
+            //fileStream.write(file.getBytes());
+            //fileStream.close();
+            //os.flush();
+            is.read(getBytes);
+            result = new String(getBytes, "UTF-8");
+
+            socket.close();
+        }
+        catch (SocketTimeoutException e)
+        {
+            result = e.getMessage();
+        }
+        System.out.println(result);
+        result=StringUtils.stripFront(result,'}');
+
+        JSONObject jsonObject= JSONObject.parseObject(result);
+        System.out.println(jsonObject);
+
+
+
+        UploadInfo uploadInfo = new UploadInfo(request.getParameter("guid"), Integer.parseInt(request.getParameter("user")), file);
+        if(fileUtil.saveFileList(uploadInfo,jsonObject))
+            return jsonObject;
+        else
+            return null;
 
     }
 

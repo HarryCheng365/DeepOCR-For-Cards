@@ -1,5 +1,5 @@
 (function(angular, $) {
-    var app=angular.module('myApp', ['ngFileUpload','ui.router']);
+    var app=angular.module('myApp', ['ngFileUpload','ui.router','ngImgCrop']);
 
     app.run( function run( $http ){
 

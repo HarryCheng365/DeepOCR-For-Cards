@@ -1,5 +1,6 @@
 package com.deepocr.card.Service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.deepocr.card.Entity.Entity;
 import com.deepocr.card.Entity.UploadInfo;
 import com.deepocr.card.dao.FileRepository;
@@ -32,30 +33,30 @@ public class FileUtil {
 
     }
 
-    public String saveFileList(UploadInfo uploadInfo){
+    public boolean saveFileList(UploadInfo uploadInfo, JSONObject jsonObject){
 
     if(!uploadInfo.getFile().isEmpty()) {
-    System.out.println(uploadInfo.getFile());
+
     String contentType = uploadInfo.getFile().getContentType();
-    String filename = uploadInfo.getUser()+"-"+uploadInfo.getFile().getOriginalFilename();
+    String filename = uploadInfo.getUser()+"-"+uploadInfo.getGuid()+"-"+uploadInfo.getFile().getOriginalFilename();
     String filePath = "/Users/Haoyu/Documents/DeepOCR-For-Cards/UploadFiles/";
 
     try {
         uploadFile(uploadInfo.getFile().getBytes(), filePath, filename);
     } catch (Exception e) {
         System.out.println(e.getMessage());
-        return filename + "上传失败";
+        return false;
     }
 
-    int temp = saveFile(uploadInfo.getGuid(), uploadInfo.getUser(), filePath+filename, "");
+    int temp = saveFile(uploadInfo.getGuid(), uploadInfo.getUser(), filePath+filename, jsonObject.toString());
     if (temp <= 0)
-        return filename + "上传失败";
+        return false;
 
 
-    return "所有文件保存成功";
+    return true;
 }
 else
-    return "You failed to upload because the file was empty.";
+    return false;
 
     }
 

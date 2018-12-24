@@ -1,4 +1,69 @@
 <!-- inner page banner -->
+<style type="text/css">
+
+	#crop_image_bottom input {
+		height: 30px;
+		padding: 5px 15px;
+		border-radius: 3px;
+		border: none;
+		margin-left: 20px;
+		outline: none;
+	}
+	#submitBtn {
+		background-color: #40aff2;
+		color: white;
+		cursor: pointer;
+	}
+	#submitBtn:HOVER {
+		background-color: #409ff2;
+	}
+	/* 顶部 */
+	#crop_image_top h4 {
+		margin: 0;
+		padding: 0;
+		font-weight: normal;
+	}
+
+	#uploadImage #cropimg {
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		padding: 0;
+		margin: 0;
+		top: 0;
+		left: 0;
+	}
+
+	/* Apply these styles only when #preview-pane has
+       been placed within the Jcrop widget */
+	.jcrop-holder #preview-pane {
+		display: block;
+		position: absolute;
+		z-index: 2000;
+		top: 10px;
+		right: -280px;
+		padding: 6px;
+		border: 1px rgba(0, 0, 0, .4) solid;
+		background-color: white;
+		-webkit-border-radius: 6px;
+		-moz-border-radius: 6px;
+		border-radius: 6px;
+		-webkit-box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
+		-moz-box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
+		box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
+	}
+
+	/* The Javascript code will set the aspect ratio of the crop
+       area based on the size of the thumbnail preview,
+       specified here */
+	#preview-pane .preview-container {
+		width: 250px;
+		height: 170px;
+		overflow: hidden;
+	}
+
+</style>
+
 <div  id="myApp" ng-controller="APICtrl">
 <section class="inner-page-banner">
 	<div class="page-heading text-center">
@@ -18,8 +83,11 @@
 		<div class="row contact-agileinfo">
 			<div class="col-md-7 contact-right"> 
 				<form action="#" method="post">
-					<input type="email" class="email" name="Email" placeholder="Email" required="">
-					<input type="text" name="Phone no" placeholder="Phone" required="">
+					<input type="text"  ng-model="num" name="num" placeholder="你的学号" required="">
+					<input type="text" ng-model="name" name="name" placeholder="你的姓名" required="">
+					<input type="text" ng-model="department" name="department" placeholder="你的学院" required="">
+					<input type="text" ng-model="other" name="other" placeholder="其他编号" required="">
+
 					<!--<textarea name="Message" placeholder="Message" required=""></textarea>-->
 					<p>&nbsp</p>
 					<div class="col-lg-12">
@@ -31,7 +99,7 @@
 									<div class="team-details text-center">
 										<div class="socials mt-20">
 											<a class="button" ng-click="img_del($index)"><i class="fa fa-times"></i></a>
-											<a class="button" onclick="clickHandler()" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-edit"></i></a>
+											<a class="button" ng-click="clickHandler()" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-edit"></i></a>
 										</div>
 									</div>
 								</div>
@@ -44,6 +112,7 @@
 									<div class="team-details text-center">
 										<div class="socials mt-20">
 											<a class="button" ngf-select ngf-change="uploadFiles($file)"  ngf-validate="{size: {min:'10KB', max:'20MB'}}" ngf-accept="'image/*'" accept="'image/*'" ><i class="fa fa-camera"></i></a>
+											<a class="button" data-toggle="modal" data-target="#myModal" ng-click="MediaHandle()"><i class="fa fa-video"></i></a>
 										</div>
 									</div>
 								</div>
@@ -56,9 +125,10 @@
 								</div>
 							</div>
 							<div ng-if="thumb.length>0" class="button" ng-click="img_del(0)"><i class="fa fa-times-circle" style="color: #3b5998;font-size: 20px;padding-left: 10px;"></i></div>
+							<div ng-if="thumb.length>0" class="button" ng-click="clickHandler()" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-edit" style="color: #3b5998;font-size: 20px;padding-left: 10px;"></i></div>
 							<div  ng-show="thumb.length==0" class="team-img col-lg-3" style="max-height: 96px;max-width: 96px;padding-left: 0px;padding-right: 0px">
-								<a class="button" data-toggle="modal" data-target="#exampleModalCenter" ngf-select ngf-change="uploadFiles($file)"  ngf-validate="{size: {min:'10KB', max:'20MB'}}" ngf-accept="'image/*'" accept="'image/*'" ><i class="fa fa-camera" style="font-size: 30px;padding-left: 10px;padding-top: 10px"></i></a>
-								</div>
+								<a class="button" data-toggle="modal" ngf-select ngf-change="uploadFiles($file)"  ngf-validate="{size: {min:'10KB', max:'20MB'}}" ngf-accept="'image/*'" accept="'image/*'" ><i class="fa fa-camera" style="font-size: 30px;padding-left: 10px;padding-top: 10px"></i></a>
+						</div>
 
 						</div>
 
@@ -66,7 +136,7 @@
 
 					</div>
 					<div class="read mt-3">
-						<a ng-click="upload()">Submit <span class="btn ml-2"><i class="fas fa-arrow-right" aria-hidden="true"></i></span></a>
+						<a ng-click="upload()" style="color: white">Submit <span class="btn ml-2"><i class="fas fa-arrow-right" aria-hidden="true"></i></span></a>
 					</div>
 				</form>
 			</div>
@@ -90,49 +160,73 @@
 	</div>
 </section>
 
+
+
 	<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
+		<div id="modal-content" class="modal-dialog modal-dialog-centered" role="document">
+			<div  class="modal-content">
 				<div class="modal-header text-center">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
 				<div class="modal-body">
+					<div class="modal-content">
+						<div ng-repeat="item in thumb" >
+								<img ng-src="{{item.imgSrc}}" id="target" alt="待裁剪图片" />
+								<!-- 预览 -->
+								<div id="preview-pane">
+									<div class="preview-container">
+										<img ng-src="{{item.imgSrc}}" class="jcrop-preview" alt="Preview" />
+									</div>
 
-					<div class="login px-4 mx-auto mw-100">
-						<h5 class="text-center mb-4">裁剪</h5>
-						<div id="test"></div>
+								</div>
+							<canvas id='previewCanvas'></canvas>
+
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default"
+										data-dismiss="modal">关闭
+								</button>
+								<button id="Btn" class="btn" type="button" value="确定" ng-click="cutOk()">
+									提交更改
+								</button>
+							</div>
+
+
+						</div>
 					</div>
+
 				</div>
 
 			</div>
 		</div>
 	</div>
+
+
+
+
+
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel">
+						实时摄影
+					</h4>
 					<button type="button" class="close" data-dismiss="modal"
 							aria-hidden="true">×
 					</button>
-					<h4 class="modal-title" id="myModalLabel">
-						模态框（Modal）标题
-					</h4>
 				</div>
-				<div class="modal-body">
-					按下 ESC 按钮退出。
-					<div ng-repeat="item in thumb" >
-						<div class="team-img col-lg-3" style="max-height: 96px;max-width: 96px;padding-left: 0px;padding-right: 15px " >
-							<img style="height: 96px;width: 96px;" ng-src="{{item.imgSrc}}" alt="">
-						</div>
-					</div>
+				<div class="modal-content">
+					<video id="video" style="width: 80%;margin-left: 10%;margin-right: 10%" width="640" height="480" autoplay></video>
+					<canvas id="canvas" style="width: 80%;margin-left: 10%;margin-right: 10%" width="640" height="480"></canvas>
 				</div>
+
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default"
 							data-dismiss="modal">关闭
 					</button>
-					<button type="button" class="btn btn-primary">
+					<button type="button"  class="btn btn-primary" ng-click="snapOK()">
 						提交更改
 					</button>
 				</div>
@@ -140,3 +234,7 @@
 		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
 </div>
+
+
+
+

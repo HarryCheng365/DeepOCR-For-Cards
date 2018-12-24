@@ -10,7 +10,11 @@
 */
 .jcrop-holder {
   direction: ltr;
-  text-align: left;
+  float: left;
+  position: relative;
+  text-align: center;
+  width: 92%;
+  margin: 4%;
 }
 /* Selection Border */
 .jcrop-vline,
