@@ -22,10 +22,19 @@
                 .success(function (data, status, headers, config) {
                     console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
                     $scope.APIdata=data;
+                    if(data.hasOwnProperty("info")){
+
+                    console.log(data.info);
+                    window.alert(data.info);
+                    $scope.num=$scope.APIdata.info;
+                    }
+
+
                     $scope.num=$scope.APIdata.id;
                     $scope.department=$scope.APIdata.department;
                     $scope.name=$scope.APIdata.name;
                     $scope.other=$scope.APIdata.number;
+
                 })
                 .error(function (data, status, headers, config) {
                     console.log('error status: ' + status);

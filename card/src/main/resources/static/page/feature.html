@@ -31,14 +31,14 @@
 <div class="f1 p-sm-5 p-4">
 <i class="fas fa-arrow-right" aria-hidden="true"></i>
 <h3 class="my-3">消息递送</h3>
-<p></p>
+<p>选择通过socket建立Java客户端和Python服务端之间的通信，当用户点击上传图片时，将其转换为byte序列，向服务端发起链接请求，并传送数据。服务端接收完数据后，利用send方法将识别信息或错误信息进行返回，由客户端本地将结果转换为json。接收数据时通过settimeout()方法解决socket调用recv接收数据时因为无法处理tcp数据流结束而阻塞的问题。</p>
 </div>
 </div>
 <div class="col-lg-4 col-md-6 mt-sm-5 mt-4">
 <div class="f1 p-sm-5 p-4">
 <i class="fas fa-arrow-right" aria-hidden="true"></i>
 <h3 class="my-3">图片切割</h3>
-	<p></p>
+	<p>图像切割部分两条基于openCV的道路殊途同归，第一条路是Gaussian去噪后二值化处理，用Sobel算子对X、Y方向进行边缘检测，随后根据测试经验利用膨胀算法使得校园卡的横线得以更好连接，随后根据轮廓进行切割；第二条路使用直接阈值法二值化的方法对深色背景照片进行快速操作。随后我们利用approxPolyDP( )进行长方形拟合，用getPerspectiveTransform( )投影消除畸变，根据卡片信息区域、头像区域、樱花城堡区域相对位置进行切割并根据结果判定是否为校园卡。</p>
 </div>
 </div>
 <div class="col-lg-4 col-md-6 mt-sm-5 mt-4">
