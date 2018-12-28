@@ -2,6 +2,10 @@
 import cv2
 import numpy as np
 from ocr.ocr import OCR
+import opencv_pkg.c_seg
+import time
+import socket
+
 
 def fix_color(img):
     # opencv读图像是奇怪的BGR的顺序，在plot输出的时候重新排序成RGB
@@ -56,7 +60,8 @@ def get_pic(input):
 
 
 def get_img_from_local():
-    return cv2.imread('../pics/2.jpg')
+    return cv2.imread("../pics/"+c_seg.s_len+c_seg.file_type)
+    #return cv2.imread("../pics/1.jpg")
 
 
 def get_img_from_pipeline():
@@ -76,27 +81,59 @@ def seg(img):
     return pic, word
 
 
-def plot():
-    from matplotlib import pyplot as plt
-    # plt.imshow(fix_color(cv2.drawContours(bgr_img, contours, -1, (0, 255, 0), 3)))
-    # plt.imshow(fix_color(cv2.drawContours(bgr_img, [approx], -1, (0, 255, 0), 3)))
-    plt.subplot(131), plt.imshow(fix_color(img)), plt.title('input')
-    # plt.subplot(222), plt.imshow(fix_color(card)), plt.title('card')
-    # plt.subplot(223), plt.imshow(fix_color(pic)), plt.title('pic')
-    # plt.subplot(224), plt.imshow(fix_color(word)), plt.title('word')
-    plt.subplot(132), plt.imshow(fix_color(pic)), plt.title('pic')
-    plt.subplot(133), plt.imshow(fix_color(word)), plt.title('word')
-    plt.show()
+# def plot():
+#     from matplotlib import pyplot as plt
+#     # plt.imshow(fix_color(cv2.drawContours(bgr_img, contours, -1, (0, 255, 0), 3)))
+#     # plt.imshow(fix_color(cv2.drawContours(bgr_img, [approx], -1, (0, 255, 0), 3)))
+#     plt.subplot(131), plt.imshow(fix_color(img)), plt.title('input')
+#     # plt.subplot(222), plt.imshow(fix_color(card)), plt.title('card')
+#     # plt.subplot(223), plt.imshow(fix_color(pic)), plt.title('pic')
+#     # plt.subplot(224), plt.imshow(fix_color(word)), plt.title('word')
+#     plt.subplot(132), plt.imshow(fix_color(pic)), plt.title('pic')
+#     plt.subplot(133), plt.imshow(fix_color(word)), plt.title('word')
+#     plt.show()
 
-
-if __name__ == "__main__":
-    # todo: 正式版本中应该是读管道
+def process():
     img = get_img_from_local()
     # pic就是证件照，word就是文字部分的切片
     pic, word = seg(img)
-    plot()
+    #plot()
     # 引入ocr函数进行识别
-    _, my_byte = cv2.imencode(".png", word)
+    _, my_byte = cv2.imencode(".jpg", word)
     my_byte = my_byte.tobytes()
-    print(OCR(my_byte))
+    dict=OCR(my_byte)
+    print (dict)
+    return str(dict)
+    #print(OCR(my_byte))
+if __name__ == "__main__":
+    process()
+#
+# if __name__ == "__main__":
+#     try:
+#         # todo: 正式版本中应该是读管道
+#         img = get_img_from_local()
+#         # pic就是证件照，word就是文字部分的切片
+#         pic, word = seg(img)
+#         #plot()
+#         # 引入ocr函数进行识别
+#         _, my_byte = cv2.imencode(".png", word)
+#         my_byte = my_byte.tobytes()
+#
+#
+#         print(OCR(my_byte))
+#     except Exception:
+#         try:
+#             # todo: 正式版本中应该是读管道
+#             img = get_img_from_local()
+#             # 引入ocr函数进行识别
+#             _, my_byte = cv2.imencode(".png", img)
+#             my_byte = my_byte.tobytes()
+#             dict=OCR(my_byte)
+#             if((dict['department']=="")|(dict['id']=="")):
+#                  raise Exception
+#             print (dict)
+#         except Exception:
+#             print("报错内容")
+
+
 
